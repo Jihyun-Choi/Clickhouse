@@ -1,0 +1,19 @@
+version: '3.5'
+services:
+  clickhouse-storage:
+    image: clickhouse/clickhouse-server:22.4.5
+    privileged: true
+    restart: always
+    volumes:
+      - ./config.xml:/etc/clickhouse-server/config.xml
+      - clickhouse-storage-dev-data:/var/lib/clickhouse
+    environment:
+      - CLICKHOUSE_DB=my_database
+      - CLICKHOUSE_USER=user_ch
+      - CLICKHOUSE_PASSWORD=secret_ch
+      - CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT=1
+    ports:
+      - 8123:8123
+      - 9000:9000
+volumes:
+  clickhouse-storage-dev-data:
